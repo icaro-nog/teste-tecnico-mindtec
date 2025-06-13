@@ -1,14 +1,10 @@
 <?php
 
 use App\Http\Controllers\AgendamentoController;
+use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-Route::get('/', [AgendamentoController::class, 'index'])
+Route::get('/agendamento', [AgendamentoController::class, 'index'])
     ->name('agendamento.index');
 
 Route::get('/cadastro-agendamento', [AgendamentoController::class, 'create'])
@@ -16,3 +12,9 @@ Route::get('/cadastro-agendamento', [AgendamentoController::class, 'create'])
 
 Route::post('/store-agendamento', [AgendamentoController::class, 'store'])
     ->name('agendamento-store');
+
+Route::get('/paciente', [PacienteController::class, 'index'])
+    ->name('paciente.index');
+
+Route::get('/cadastro-paciente', [PacienteController::class, 'create'])
+    ->name('paciente.create');

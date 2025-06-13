@@ -30,6 +30,14 @@ class AgendamentoController extends Controller
     public function store(StoreAgendamentoRequest $request)
     {
         $request->validated();
+
+        dd($request);
+
+        // criar agendamento aqui com eloquent
+
+        // redirect pra route de listagem se der certo
+
+        // session('success') pra mostrar msg na listagem
     }
 
     /**

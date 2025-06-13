@@ -24,7 +24,7 @@ class StoreAgendamentoRequest extends FormRequest
         return [
             'paciente_nome_cpf' => 'required',
             'medico_nome_crm' => 'required',
-            'agendamento_data_hora' => 'required|date_format:"YYYY-MM-DDTHH:mm"',
+            'agendamento_data_hora' => 'required',
             'agendamento_status' => 'between:1,3'
         ];
     }
