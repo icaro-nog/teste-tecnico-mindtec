@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// implementar rota pra onde?
-// agendamento index
 
 Route::get('/', [AgendamentoController::class, 'index'])
     ->name('agendamento.index');
+
+Route::get('/cadastro-agendamento', [AgendamentoController::class, 'create'])
+    ->name('agendamento.create');
+
+Route::post('/store-agendamento', [AgendamentoController::class, 'store'])
+    ->name('agendamento-store');

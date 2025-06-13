@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+
+    <a href="{{ route('agendamento.create') }}">Novo agendamento</a>
+
+    <br>
+
     listagem agendamentos
 </body>
 </html>

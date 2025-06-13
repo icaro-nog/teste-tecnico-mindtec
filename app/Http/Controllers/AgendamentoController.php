@@ -21,7 +21,7 @@ class AgendamentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('agendamento.cadastro');
     }
 
     /**
@@ -29,7 +29,7 @@ class AgendamentoController extends Controller
      */
     public function store(StoreAgendamentoRequest $request)
     {
-        //
+        $request->validated();
     }
 
     /**
