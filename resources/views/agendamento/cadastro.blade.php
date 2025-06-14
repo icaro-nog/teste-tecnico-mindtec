@@ -31,7 +31,7 @@
     <main class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded shadow-md">
         <h2 class="text-2xl font-bold mb-6">Novo Agendamento</h2>
 
-        {{-- Exibição de erros --}}
+        {{-- erros --}}
         @if($errors->any())
             <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
                 @foreach ($errors->all() as $error)

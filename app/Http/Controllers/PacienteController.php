@@ -29,7 +29,15 @@ class PacienteController extends Controller
      */
     public function store(StorePacienteRequest $request)
     {
-        //
+        $request->validated();
+
+        dd($request);
+
+        // criar paciente aqui com eloquent
+
+        // redirect pra route de listagem se der certo
+
+        // session('success') pra mostrar msg na listagem
     }
 
     /**

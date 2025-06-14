@@ -18,3 +18,6 @@ Route::get('/paciente', [PacienteController::class, 'index'])
 
 Route::get('/cadastro-paciente', [PacienteController::class, 'create'])
     ->name('paciente.create');
+
+Route::post('/store-paciente', [PacienteController::class, 'store'])
+    ->name('paciente-store');

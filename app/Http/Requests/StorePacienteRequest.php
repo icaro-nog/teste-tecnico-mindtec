@@ -11,7 +11,7 @@ class StorePacienteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,64 @@ class StorePacienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'paciente_nome' => 'required|string|max:255',
+            'paciente_cpf' => 'required|size:11',
+            'paciente_data_nascimento' => [
+                'required',
+                'date',
+                'before_or_equal:' . now()->toDateString(), // Não permitir data futura
+            ],
+            'paciente_endereco' => 'required|string|max:255',
+
+            'paciente_primeiro_responsavel_nome' => 'required|string|max:255',
+            'paciente_primeiro_responsavel_cpf' => 'required|size:11',
+            'paciente_primeiro_responsavel_parentesco' => 'required|string|max:100',
+
+            'paciente_segundo_responsavel_nome' => 'required|string|max:255',
+            'paciente_segundo_responsavel_cpf' => 'required|size:11',
+            'paciente_segundo_responsavel_parentesco' => 'required|string|max:100',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'paciente_nome.required' => 'O nome do paciente é obrigatório.',
+            'paciente_nome.string' => 'Nome de paciente inválido.',
+            'paciente_nome.max' => 'O nome do paciente não pode ter mais de 255 caracteres.',
+
+            'paciente_cpf.required' => 'O CPF do paciente é obrigatório.',
+            'paciente_cpf.size' => 'O CPF do paciente deve ter 11 caracteres.', // ?
+
+            'paciente_data_nascimento.required' => 'A data de nascimento do paciente é obrigatória.',
+            'paciente_data_nascimento.date' => 'A data de nascimento fornecida não é válida.',
+            'paciente_data_nascimento.before_or_equal' => 'A data de nascimento não pode ser futura.',
+
+            'paciente_endereco.required' => 'O endereço do paciente é obrigatório.',
+            'paciente_endereco.string' => 'Endereço inválido.',
+            'paciente_endereco.max' => 'O endereço do paciente não pode ter mais de 255 caracteres.',
+
+            'paciente_primeiro_responsavel_nome.required' => 'O nome do primeiro responsável é obrigatório.',
+            'paciente_primeiro_responsavel_nome.string' => 'Nome do primeiro responsável inválido.',
+            'paciente_primeiro_responsavel_nome.max' => 'O nome do primeiro responsável não pode ter mais de 255 caracteres.',
+
+            'paciente_primeiro_responsavel_cpf.required' => 'O CPF do primeiro responsável é obrigatório.',
+            'paciente_primeiro_responsavel_cpf.size' => 'O CPF do primeiro responsável deve ter 11 caracteres.', // ?
+
+            'paciente_primeiro_responsavel_parentesco.required' => 'O grau de parentesco do primeiro responsável é obrigatório.',
+            'paciente_primeiro_responsavel_parentesco.string' => 'Grau de parentesco do primeiro responsável inválido.',
+            'paciente_primeiro_responsavel_parentesco.max' => 'O grau de parentesco não pode ter mais de 100 caracteres.',
+
+            'paciente_segundo_responsavel_nome.required' => 'O nome do segundo responsável é obrigatório.',
+            'paciente_segundo_responsavel_nome.string' => 'Nome do segundo responsável inválido.',
+            'paciente_segundo_responsavel_nome.max' => 'O nome do segundo responsável não pode ter mais de 255 caracteres.',
+
+            'paciente_segundo_responsavel_cpf.required' => 'O CPF do segundo responsável é obrigatório.',
+            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 11 caracteres.',
+
+            'paciente_segundo_responsavel_parentesco.required' => 'O grau de parentesco do segundo responsável é obrigatório.',
+            'paciente_segundo_responsavel_parentesco.string' => 'Grau de parentesco do segundo responsável inválido .',
+            'paciente_segundo_responsavel_parentesco.max' => 'O grau de parentesco não pode ter mais de 100 caracteres.',
         ];
     }
 }

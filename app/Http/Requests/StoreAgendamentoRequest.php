@@ -22,20 +22,29 @@ class StoreAgendamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'paciente_nome_cpf' => 'required',
-            'medico_nome_crm' => 'required',
-            'agendamento_data_hora' => 'required',
-            'agendamento_status' => 'between:1,3'
+            'paciente_nome_cpf' => 'required|string|max:255',
+            'medico_nome_crm' => 'required|string|max:255',
+            'agendamento_data_hora' => 'date|required',
+            'agendamento_status' => 'required|in:1,2,3',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'paciente_nome_cpf.required' => 'Atenção! O campo Paciente é obrigatório!',
-            'agendamento_data_hora.required' => 'Atenção! O campo Data é obrigatório!',
-            'agendamento_data_hora.date_format' => 'Atenção! O campo Data deve ser preenchido com uma data válida!',
-            'agendamento_status.between' => 'Atenção! o campo Status deve ser preenchido com: Agendado, Cancelado ou Realizado!',
+            'paciente_nome_cpf.required' => 'O campo Paciente é obrigatório.',
+            'paciente_nome_cpf.string' => 'O campo Paciente deve conter texto.',
+            'paciente_nome_cpf.max' => 'O nome ou CPF do paciente não pode ultrapassar 255 caracteres.',
+
+            'medico_nome_crm.required' => 'O campo Médico é obrigatório.',
+            'medico_nome_crm.string' => 'O campo Médico deve conter texto.',
+            'medico_nome_crm.max' => 'O nome ou CRM do médico não pode ultrapassar 255 caracteres.',
+
+            'agendamento_data_hora.required' => 'O campo Data é obrigatório.',
+            'agendamento_data_hora.date' => 'O campo Data deve conter uma data válida.',
+
+            'agendamento_status.required' => 'O campo Status é obrigatório.',
+            'agendamento_status.in' => 'O campo Status deve ser Agendado, Cancelado ou Realizado.',
         ];
     }
 }
