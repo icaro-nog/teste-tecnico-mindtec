@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Editar Paciente</title>
     @vite('resources/css/app.css')
+    @vite('resources/js/paciente/cadastro.js')
 </head>
 <body class="bg-[#eff5f5] text-[#1a3544] font-sans">
 
@@ -68,7 +69,6 @@
                     <input type="number" name="paciente_idade" id="paciente_idade" readonly
                            class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
                            value="{{ old('paciente_idade') }}">
-                           {{-- validação aqui via js --}}
                 </div>
             </div>
 
