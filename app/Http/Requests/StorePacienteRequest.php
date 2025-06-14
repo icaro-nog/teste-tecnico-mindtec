@@ -75,7 +75,7 @@ class StorePacienteRequest extends FormRequest
             'paciente_segundo_responsavel_nome.max' => 'O nome do segundo responsável não pode ter mais de 255 caracteres.',
 
             'paciente_segundo_responsavel_cpf.required' => 'O CPF do segundo responsável é obrigatório.',
-            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 11 caracteres.',
+            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 11 caracteres.', // ?
 
             'paciente_segundo_responsavel_parentesco.required' => 'O grau de parentesco do segundo responsável é obrigatório.',
             'paciente_segundo_responsavel_parentesco.string' => 'Grau de parentesco do segundo responsável inválido .',

@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('responsavels', function (Blueprint $table) {
+        Schema::create('responsaveis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->string('nome', 100);
+            $table->string('cpf', 14)->unique();
+            $table->string('grau_parentesco', 100);
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('responsavels');
+        Schema::dropIfExists('responsaveis');
     }
 };

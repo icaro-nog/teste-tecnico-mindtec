@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->string('nome_medico', 100);
+            $table->string('crm_medico', 7);
+            $table->string('cidade_medico', 100);
+            $table->char('uf_medico', 2);
+            $table->string('especialidade', 100);
+            $table->dateTime('data_hora');
+            $table->enum('status', ['1', '2', '3']);
             $table->timestamps();
         });
     }

@@ -106,12 +106,29 @@
                 </div>
             </div>
 
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-auto w-95">
+                    <label for="medico_nome_crm" class="block font-medium mb-1">Médico</label>
+                    <input type="text" name="medico_nome_crm" id="medico_nome_crm"
+                           placeholder="Nome ou CRM do médico"
+                           value="{{ old('medico_nome_crm') }}"
+                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
+                </div>
+
+                <div class="flex-auto w-5">
+                    <label for="medico_crm" class="block font-medium mb-1">CRM</label>
+                    <input type="text" name="medico_crm" id="medico_crm"
+                           value="{{ old('medico_crm') }}"
+                           readonly
+                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                </div>
+            </div>
+
             <div>
-                <label for="medico_nome_crm" class="block font-medium mb-1">Médico</label>
-                <input type="text" name="medico_nome_crm" id="medico_nome_crm"
-                       placeholder="Nome ou CRM do médico"
-                       value="{{ old('medico_nome_crm') }}"
-                       class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
+                <label for="medico_cidade" class="block font-medium mb-1">Cidade do Médico</label>
+                <input type="text" name="medico_cidade" id="medico_cidade"
+                       readonly
+                       class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
             </div>
 
             <div>
