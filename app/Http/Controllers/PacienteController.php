@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdatePacienteRequest;
 use App\Models\Paciente;
+use App\Models\Responsavel;
+use Illuminate\Support\Facades\DB;
 
 class PacienteController extends Controller
 {
@@ -13,7 +15,9 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        return view('paciente.listagem');
+        $pacientes = Paciente::with('responsaveis')->get();
+
+        return view('paciente.listagem', compact('pacientes'));
     }
 
     /**
@@ -29,15 +33,39 @@ class PacienteController extends Controller
      */
     public function store(StorePacienteRequest $request)
     {
-        $request->validated();
+        DB::beginTransaction();
 
-        dd($request);
+        try {
+            $paciente = Paciente::create([
+                'nome' => $request->paciente_nome,
+                'cpf' => $request->paciente_cpf,
+                'data_nascimento' => $request->paciente_data_nascimento,
+                'endereco_completo' => $request->paciente_endereco,
+            ]);
 
-        // criar paciente aqui com eloquent
+            Responsavel::create([
+                'paciente_id' => $paciente->id,
+                'nome' => $request->paciente_primeiro_responsavel_nome,
+                'cpf' => $request->paciente_primeiro_responsavel_cpf,
+                'grau_parentesco' => $request->paciente_primeiro_responsavel_parentesco,
+            ]);
 
-        // redirect pra route de listagem se der certo
+            Responsavel::create([
+                'paciente_id' => $paciente->id,
+                'nome' => $request->paciente_segundo_responsavel_nome,
+                'cpf' => $request->paciente_segundo_responsavel_cpf,
+                'grau_parentesco' => $request->paciente_segundo_responsavel_parentesco,
+            ]);
 
-        // session('success') pra mostrar msg na listagem
+            DB::commit();
+
+            return redirect()->route('paciente.index')
+                            ->with('success', 'Paciente e responsáveis cadastrados com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->withErrors(['error' => 'Erro ao cadastrar: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -53,15 +81,50 @@ class PacienteController extends Controller
      */
     public function edit(Paciente $paciente)
     {
-        //
+        return view('paciente.editar', compact('paciente'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePacienteRequest $request, Paciente $paciente)
+    public function update(
+            UpdatePacienteRequest $request, 
+            Paciente $paciente
+        )
     {
-        //
+        DB::beginTransaction();
+
+        try{
+            $paciente->update([
+                'nome' => $request->paciente_nome,
+                'cpf' => $request->paciente_cpf,
+                'data_nascimento' => $request->paciente_data_nascimento,
+                'endereco_completo' => $request->paciente_endereco,
+            ]);
+
+            $responsaveis = $paciente->responsaveis;
+
+            $responsaveis[0]->update([
+                'nome' => $request->paciente_primeiro_responsavel_nome,
+                'cpf' => $request->paciente_primeiro_responsavel_cpf,
+                'grau_parentesco' => $request->paciente_primeiro_responsavel_parentesco,
+            ]);
+
+            $responsaveis[1]->update([
+                'nome' => $request->paciente_segundo_responsavel_nome,
+                'cpf' => $request->paciente_segundo_responsavel_cpf,
+                'grau_parentesco' => $request->paciente_segundo_responsavel_parentesco,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('paciente.index')
+                ->with('success', 'Paciente atualizado com sucesso!');
+        }catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->withErrors(['error' => 'Erro ao atualizar: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -69,6 +132,23 @@ class PacienteController extends Controller
      */
     public function destroy(Paciente $paciente)
     {
-        //
+
+        DB::beginTransaction();
+
+        try {
+            $paciente->responsaveis()->delete();
+
+            $paciente->delete();
+
+            DB::commit();
+
+            return redirect()->route('paciente.index')
+                ->with('success', 'Paciente excluído com sucesso!');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()->withErrors(['error' => 'Erro ao excluir: ' . $e->getMessage()]);
+        }
     }
 }

@@ -30,6 +30,12 @@
     <main class="p-6">
         <h1 class="text-2xl font-bold mb-6">Lista de Pacientes</h1>
 
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
+
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
                 <thead class="bg-[#d4e3e3] text-[#1a3544]">
@@ -45,16 +51,22 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#d4e3e3]">
-                    {{-- @forelse($pacientes as $paciente)
+                    @forelse($pacientes as $paciente)
                         <tr class="hover:bg-[#f1f8f8]">
                             <td class="px-4 py-3">{{ $paciente->id }}</td>
                             <td class="px-4 py-3">{{ $paciente->nome }}</td>
                             <td class="px-4 py-3">{{ $paciente->cpf }}</td>
                             <td class="px-4 py-3">{{ \Carbon\Carbon::parse($paciente->data_nascimento)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-3">{{ \Carbon\Carbon::parse($paciente->data_nascimento)->age }} anos</td>
+                            <td class="px-4 py-3">{{ $paciente->idade_formatada }}</td>
+                            <td class="px-4 py-3">{{ $paciente->endereco_completo }}</td>
                             <td class="px-4 py-3">
-                                {{ $paciente->endereco }}, {{ $paciente->numero }} - {{ $paciente->bairro }},
-                                {{ $paciente->cidade }} - {{ $paciente->estado }}, {{ $paciente->cep }}
+                                <ul class="list-disc ml-6">
+                                    @foreach ($paciente->responsaveis as $responsavel)
+                                        <li>
+                                            {{ $responsavel->nome }} ({{ $responsavel->grau_parentesco }}) - CPF: {{ $responsavel->cpf }}
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </td>
                             <td class="px-4 py-3">
                                 <a href="{{ route('paciente.edit', $paciente->id) }}"
@@ -67,7 +79,7 @@
                         <tr>
                             <td colspan="7" class="px-4 py-4 text-center">Nenhum paciente encontrado.</td>
                         </tr>
-                    @endforelse --}}
+                    @endforelse
                 </tbody>
             </table>
         </div>

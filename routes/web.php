@@ -15,7 +15,7 @@ Route::get('/cadastro-agendamento', [AgendamentoController::class, 'create'])
     ->name('agendamento.create');
 
 Route::post('/store-agendamento', [AgendamentoController::class, 'store'])
-    ->name('agendamento-store');
+    ->name('agendamento.store');
 
 Route::get('/paciente', [PacienteController::class, 'index'])
     ->name('paciente.index');
@@ -24,4 +24,13 @@ Route::get('/cadastro-paciente', [PacienteController::class, 'create'])
     ->name('paciente.create');
 
 Route::post('/store-paciente', [PacienteController::class, 'store'])
-    ->name('paciente-store');
+    ->name('paciente.store');
+
+Route::get('paciente/{paciente}/edit', [PacienteController::class, 'edit'])
+    ->name('paciente.edit');
+
+Route::put('paciente/{paciente}', [PacienteController::class, 'update'])
+    ->name('paciente.update');
+
+Route::delete('paciente/{paciente}', [PacienteController::class, 'destroy'])
+    ->name('paciente.destroy');
