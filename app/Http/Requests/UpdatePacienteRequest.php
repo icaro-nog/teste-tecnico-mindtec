@@ -23,7 +23,7 @@ class UpdatePacienteRequest extends FormRequest
     {
         return [
             'paciente_nome' => 'required|string|max:255',
-            'paciente_cpf' => 'required|size:11',
+            'paciente_cpf' => 'required|size:14',
             'paciente_data_nascimento' => [
                 'required',
                 'date',
@@ -32,11 +32,11 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_endereco' => 'required|string|max:255',
 
             'paciente_primeiro_responsavel_nome' => 'required|string|max:255',
-            'paciente_primeiro_responsavel_cpf' => 'required|size:11',
+            'paciente_primeiro_responsavel_cpf' => 'required|size:14',
             'paciente_primeiro_responsavel_parentesco' => 'required|string|max:100',
 
             'paciente_segundo_responsavel_nome' => 'required|string|max:255',
-            'paciente_segundo_responsavel_cpf' => 'required|size:11',
+            'paciente_segundo_responsavel_cpf' => 'required|size:14',
             'paciente_segundo_responsavel_parentesco' => 'required|string|max:100',
         ];
     }
@@ -49,7 +49,7 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_nome.max' => 'O nome do paciente não pode ter mais de 255 caracteres.',
 
             'paciente_cpf.required' => 'O CPF do paciente é obrigatório.',
-            'paciente_cpf.size' => 'O CPF do paciente deve ter 11 caracteres.', // ?
+            'paciente_cpf.size' => 'O CPF do paciente deve ter 14 caracteres.',
 
             'paciente_data_nascimento.required' => 'A data de nascimento do paciente é obrigatória.',
             'paciente_data_nascimento.date' => 'A data de nascimento fornecida não é válida.',
@@ -64,7 +64,7 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_primeiro_responsavel_nome.max' => 'O nome do primeiro responsável não pode ter mais de 255 caracteres.',
 
             'paciente_primeiro_responsavel_cpf.required' => 'O CPF do primeiro responsável é obrigatório.',
-            'paciente_primeiro_responsavel_cpf.size' => 'O CPF do primeiro responsável deve ter 11 caracteres.', // ?
+            'paciente_primeiro_responsavel_cpf.size' => 'O CPF do primeiro responsável deve ter 14 caracteres.',
 
             'paciente_primeiro_responsavel_parentesco.required' => 'O grau de parentesco do primeiro responsável é obrigatório.',
             'paciente_primeiro_responsavel_parentesco.string' => 'Grau de parentesco do primeiro responsável inválido.',
@@ -75,7 +75,7 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_segundo_responsavel_nome.max' => 'O nome do segundo responsável não pode ter mais de 255 caracteres.',
 
             'paciente_segundo_responsavel_cpf.required' => 'O CPF do segundo responsável é obrigatório.',
-            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 11 caracteres.', // ?
+            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 14 caracteres.', 
 
             'paciente_segundo_responsavel_parentesco.required' => 'O grau de parentesco do segundo responsável é obrigatório.',
             'paciente_segundo_responsavel_parentesco.string' => 'Grau de parentesco do segundo responsável inválido .',

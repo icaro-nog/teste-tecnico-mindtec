@@ -36,10 +36,10 @@ class Paciente extends Model
         $anos = $nascimento->diffInYears($hoje);
 
         if ($anos >= 1) {
-            return ceil($anos). ' ' . 'ano(s)';
+            return floor($anos). ' ' . 'ano(s)';
         }
 
         $meses = $nascimento->diffInMonths($hoje);
-        return ceil($meses) . ' ' . 'mês(es)';
+        return floor($meses) . ' ' . 'mês(es)';
     }
 }

@@ -7,7 +7,6 @@
 </head>
 <body class="bg-[#eff5f5] text-[#1a3544] font-sans">
 
-    {{-- Menu de navegação --}}
     <nav class="flex flex-wrap items-center justify-center gap-4 p-4 bg-white shadow-md">
         <a href="{{ route('agendamento.index') }}"
            class="bg-[#86c440] text-[#1a3544] font-semibold px-4 py-2 rounded hover:bg-[#76b030] transition">

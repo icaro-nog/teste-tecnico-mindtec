@@ -54,7 +54,7 @@
             <div>
                 <label for="paciente_cpf" class="block font-medium mb-1">CPF</label>
                 <input type="text" name="paciente_cpf" id="paciente_cpf"
-                       class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
+                       class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440] cpf-mask"
                        value="{{ old('paciente_cpf') }}">
             </div>
 
@@ -93,7 +93,7 @@
                 <div class="flex-1 min-w-[200px]">
                     <label for="paciente_primeiro_responsavel_cpf" class="block font-medium mb-1">CPF</label>
                     <input type="text" name="paciente_primeiro_responsavel_cpf" id="paciente_primeiro_responsavel_cpf"
-                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
+                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440] cpf-mask"
                            value="{{ old('paciente_primeiro_responsavel_cpf') }}">
                 </div>
                 <div class="flex-1 min-w-[200px]">
@@ -116,7 +116,7 @@
                 <div class="flex-1 min-w-[200px]">
                     <label for="paciente_segundo_responsavel_cpf" class="block font-medium mb-1">CPF</label>
                     <input type="text" name="paciente_segundo_responsavel_cpf" id="paciente_segundo_responsavel_cpf"
-                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
+                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440] cpf-mask"
                            value="{{ old('paciente_segundo_responsavel_cpf') }}">
                 </div>
                 <div class="flex-1 min-w-[200px]">
