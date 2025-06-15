@@ -54,9 +54,9 @@
                         <tr class="hover:bg-[#f1f8f8]">
                             <td class="px-4 py-3">{{ $paciente->id }}</td>
                             <td class="px-4 py-3">{{ $paciente->nome }}</td>
-                            <td class="px-4 py-3">{{ $paciente->cpf }}</td>
+                            <td class="px-4 py-3">{{ $paciente->cpf_formatado }}</td>
                             <td class="px-4 py-3">{{ \Carbon\Carbon::parse($paciente->data_nascimento)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-3">{{ $paciente->idade_formatada }}</td>
+                            <td class="px-4 py-3">{{ $paciente->idade_calculada }}</td>
                             <td class="px-4 py-3">{{ $paciente->endereco_completo }}</td>
                             <td class="px-4 py-3">
                                 <ul class="list-disc ml-6">

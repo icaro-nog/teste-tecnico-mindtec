@@ -26,7 +26,7 @@ class Paciente extends Model
         return $this->hasMany(Responsavel::class);
     }
 
-    public function getIdadeFormatadaAttribute()
+    public function getIdadeCalculadaAttribute()
     {
         if (!$this->data_nascimento) {
             return null;
@@ -42,5 +42,14 @@ class Paciente extends Model
 
         $meses = $nascimento->diffInMonths($hoje);
         return floor($meses) . ' ' . 'mês(es)';
+    }
+
+    public function getCpfFormatadoAttribute()
+    {
+        return preg_replace(
+            "/^(\d{3})(\d{3})(\d{3})(\d{2})$/",
+            "$1.$2.$3-$4",
+            $this->cpf
+        );
     }
 }
