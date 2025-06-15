@@ -35,7 +35,7 @@ class UpdatePacienteRequest extends FormRequest
                 'before_or_equal:' . now()->toDateString(), // Não permitir data futura
             ],
             'paciente_endereco' => 'required|string|max:255',
-            'paciente_cep' => 'required|size:9',
+            'paciente_cep' => 'required|size:8',
 
             'paciente_primeiro_responsavel_nome' => 'required|string|max:255',
             'paciente_primeiro_responsavel_cpf' => [
@@ -67,7 +67,7 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_cpf.unique' => 'O CPF do paciente já está cadastrado.',
 
             'paciente_cep.required' => 'O CEP do paciente é obrigatório.',
-            'paciente_cep.size' => 'O CEP do paciente deve ter 14 caracteres.',
+            'paciente_cep.size' => 'O CEP do paciente deve ter 8 caracteres.',
 
             'paciente_data_nascimento.required' => 'A data de nascimento do paciente é obrigatória.',
             'paciente_data_nascimento.date' => 'A data de nascimento fornecida não é válida.',
@@ -130,6 +130,7 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_cpf' => preg_replace('/\D/', '', $this->paciente_cpf),
             'paciente_primeiro_responsavel_cpf' => preg_replace('/\D/', '', $this->paciente_primeiro_responsavel_cpf),
             'paciente_segundo_responsavel_cpf' => preg_replace('/\D/', '', $this->paciente_segundo_responsavel_cpf),
+            'paciente_cep' => preg_replace('/\D/', '', $this->paciente_cep),
         ]);
     }
 }

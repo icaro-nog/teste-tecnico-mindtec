@@ -83,10 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.getElementById('paciente_cep').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 5) {
-        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
-    }
-    e.target.value = value;
-});
+IMask(
+  document.getElementById('paciente_cep'),
+  {
+    mask: '00000-000'
+  }
+)
