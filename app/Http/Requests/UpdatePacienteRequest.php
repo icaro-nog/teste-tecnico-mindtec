@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePacienteRequest extends FormRequest
 {
@@ -23,7 +24,11 @@ class UpdatePacienteRequest extends FormRequest
     {
         return [
             'paciente_nome' => 'required|string|max:255',
-            'paciente_cpf' => 'required|size:14',
+            'paciente_cpf' => [
+                'required',
+                'size:14',
+                Rule::unique('pacientes', 'cpf')->ignore($this->paciente),
+            ],
             'paciente_data_nascimento' => [
                 'required',
                 'date',
@@ -33,11 +38,19 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_cep' => 'required|size:9',
 
             'paciente_primeiro_responsavel_nome' => 'required|string|max:255',
-            'paciente_primeiro_responsavel_cpf' => 'required|size:14',
+            'paciente_primeiro_responsavel_cpf' => [
+                'required',
+                'size:14',
+                Rule::unique('responsaveis', 'cpf')->ignore($this->route('paciente')->responsaveis[0]->id),
+            ],
             'paciente_primeiro_responsavel_parentesco' => 'required|string|max:100',
 
             'paciente_segundo_responsavel_nome' => 'required|string|max:255',
-            'paciente_segundo_responsavel_cpf' => 'required|size:14',
+            'paciente_segundo_responsavel_cpf' => [
+                'required',
+                'size:14',
+                Rule::unique('responsaveis', 'cpf')->ignore($this->route('paciente')->responsaveis[1]->id),
+            ],
             'paciente_segundo_responsavel_parentesco' => 'required|string|max:100',
         ];
     }
@@ -51,6 +64,7 @@ class UpdatePacienteRequest extends FormRequest
 
             'paciente_cpf.required' => 'O CPF do paciente é obrigatório.',
             'paciente_cpf.size' => 'O CPF do paciente deve ter 14 caracteres.',
+            'paciente_cpf.unique' => 'O CPF do paciente já está cadastrado.',
 
             'paciente_cep.required' => 'O CEP do paciente é obrigatório.',
             'paciente_cep.size' => 'O CEP do paciente deve ter 14 caracteres.',
@@ -69,6 +83,7 @@ class UpdatePacienteRequest extends FormRequest
 
             'paciente_primeiro_responsavel_cpf.required' => 'O CPF do primeiro responsável é obrigatório.',
             'paciente_primeiro_responsavel_cpf.size' => 'O CPF do primeiro responsável deve ter 14 caracteres.',
+            'paciente_primeiro_responsavel_cpf.unique' => 'O CPF do primeiro responsável já está cadastrado.',
 
             'paciente_primeiro_responsavel_parentesco.required' => 'O grau de parentesco do primeiro responsável é obrigatório.',
             'paciente_primeiro_responsavel_parentesco.string' => 'Grau de parentesco do primeiro responsável inválido.',
@@ -79,11 +94,33 @@ class UpdatePacienteRequest extends FormRequest
             'paciente_segundo_responsavel_nome.max' => 'O nome do segundo responsável não pode ter mais de 255 caracteres.',
 
             'paciente_segundo_responsavel_cpf.required' => 'O CPF do segundo responsável é obrigatório.',
-            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 14 caracteres.', 
+            'paciente_segundo_responsavel_cpf.size' => 'O CPF do segundo responsável deve ter 14 caracteres.',
+            'paciente_segundo_responsavel_cpf.unique' => 'O CPF do segundo responsável já está cadastrado.',
 
             'paciente_segundo_responsavel_parentesco.required' => 'O grau de parentesco do segundo responsável é obrigatório.',
             'paciente_segundo_responsavel_parentesco.string' => 'Grau de parentesco do segundo responsável inválido .',
             'paciente_segundo_responsavel_parentesco.max' => 'O grau de parentesco não pode ter mais de 100 caracteres.',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $cpfPaciente = $this->input('paciente_cpf');
+            $cpfResp1 = $this->input('paciente_primeiro_responsavel_cpf');
+            $cpfResp2 = $this->input('paciente_segundo_responsavel_cpf');
+
+            if ($cpfPaciente === $cpfResp1) {
+                $validator->errors()->add('paciente_primeiro_responsavel_cpf', 'O CPF do primeiro responsável não pode ser igual ao CPF do paciente.');
+            }
+
+            if ($cpfPaciente === $cpfResp2) {
+                $validator->errors()->add('paciente_segundo_responsavel_cpf', 'O CPF do segundo responsável não pode ser igual ao CPF do paciente.');
+            }
+
+            if ($cpfResp1 === $cpfResp2) {
+                $validator->errors()->add('paciente_segundo_responsavel_cpf', 'O CPF do segundo responsável não pode ser igual ao do primeiro responsável.');
+            }
+        });
     }
 }
