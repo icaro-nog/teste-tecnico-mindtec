@@ -17,7 +17,8 @@ class Paciente extends Model
         'nome',
         'cpf',
         'data_nascimento',
-        'endereco_completo'
+        'endereco_completo',
+        'cep'
     ];
 
     public function responsaveis()

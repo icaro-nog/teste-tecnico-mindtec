@@ -75,10 +75,19 @@
             </div>
 
             <div>
+                <label for="paciente_cep" class="block font-medium mb-1">CEP</label>
+                <input type="text" name="paciente_cep" id="paciente_cep"
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
+                    maxlength="9" placeholder="00000-000"
+                    value="{{ old('paciente_cep') }}">
+            </div>
+
+            <div>
                 <label for="paciente_endereco" class="block font-medium mb-1">Endereço</label>
                 <input type="text" name="paciente_endereco" id="paciente_endereco"
-                       class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
-                       value="{{ old('paciente_endereco') }}">
+                    class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                    value="{{ old('paciente_endereco') }}"
+                    readonly>
             </div>
 
             {{-- resp 1 --}}

@@ -41,6 +41,7 @@ class PacienteController extends Controller
                 'cpf' => $request->paciente_cpf,
                 'data_nascimento' => $request->paciente_data_nascimento,
                 'endereco_completo' => $request->paciente_endereco,
+                'cep' => $request->paciente_cep,
             ]);
 
             Responsavel::create([
@@ -100,6 +101,7 @@ class PacienteController extends Controller
                 'cpf' => $request->paciente_cpf,
                 'data_nascimento' => $request->paciente_data_nascimento,
                 'endereco_completo' => $request->paciente_endereco,
+                'cep' => $request->paciente_cep
             ]);
 
             $responsaveis = $paciente->responsaveis;

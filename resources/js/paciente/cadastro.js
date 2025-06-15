@@ -1,4 +1,6 @@
 import IMask from 'imask';
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 function calcularIdadeTexto(dataNascimentoStr, destinoInput) {
     const nascimento = new Date(dataNascimentoStr);
@@ -40,4 +42,51 @@ document.querySelectorAll('.cpf-mask').forEach((el) => {
     IMask(el, {
         mask: '000.000.000-00'
     });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const cepInput = document.getElementById('paciente_cep');
+    const enderecoInput = document.getElementById('paciente_endereco');
+
+    cepInput.addEventListener('blur', function () {
+        let cep = cepInput.value.replace(/\D/g, '');
+
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        enderecoInput.value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+                    } else {
+                        enderecoInput.value = '';
+                        Toastify({
+                            text: "Atenção! CEP não encontrado.",
+                            duration: 4000,
+                            gravity: "top", 
+                            position: "right",
+                            backgroundColor: "#dc2626",
+                            stopOnFocus: true,
+                        }).showToast();
+                    }
+                })
+                .catch(() => {
+                    Toastify({
+                        text: "Atenção! Erro ao buscar CEP.",
+                        duration: 4000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#dc2626",
+                        stopOnFocus: true,
+                    }).showToast();
+                });
+        }
+    });
+});
+
+document.getElementById('paciente_cep').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 5) {
+        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+    }
+    e.target.value = value;
 });

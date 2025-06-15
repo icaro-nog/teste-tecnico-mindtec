@@ -15,6 +15,7 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
-        "imask": "^7.6.1"
+        "imask": "^7.6.1",
+        "toastify-js": "^1.12.0"
     }
 }
