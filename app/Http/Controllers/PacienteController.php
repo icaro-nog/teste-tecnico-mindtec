@@ -172,6 +172,7 @@ class PacienteController extends Controller
                 'data_nascimento' => $p->data_nascimento,
                 'idade' => $p->idade_calculada,
                 'cidade' => $p->endereco_completo,
+                'cep' => $p->cep,
                 'responsaveis' => $p->responsaveis->map(fn ($r) => [
                     'nome' => $r->nome,
                     'grau_parentesco' => $r->grau_parentesco

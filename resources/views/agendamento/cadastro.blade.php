@@ -51,6 +51,7 @@
                     class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
 
                 <input type="hidden" name="paciente_id" id="paciente_id">
+                <input type="hidden" name="paciente_cep" id="paciente_cep">
 
                 <!-- Lista de pacientes -->
                 <ul id="autocomplete-list" class="absolute bg-white border border-gray-300 w-full mt-1 z-10 rounded shadow"

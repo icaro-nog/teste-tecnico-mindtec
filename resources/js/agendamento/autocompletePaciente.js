@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('paciente_nome_cpf');
     const list = document.getElementById('autocomplete-list');
     const hiddenInput = document.getElementById('paciente_id');
+    const inputMedico = document.getElementById('medico_nome_crm');
+    liberarInputMedico(false);
 
     let lastSelectedLabel = '';
 
@@ -10,12 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (query.trim() === '') {
             clearPacienteData();
+            liberarInputMedico(false);
             return;
         }
 
         if (query !== lastSelectedLabel) {
             hiddenInput.value = '';
             clearPacienteData();
+            liberarInputMedico(false);
         }
 
         if (query.length < 2) {
@@ -42,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         lastSelectedLabel = paciente.label;
 
                         preencherCampos(paciente);
+                        liberarInputMedico(true);
                         list.style.display = 'none';
                     });
                     list.appendChild(item);
@@ -61,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('paciente_data_nascimento').value = p.data_nascimento || '';
         document.getElementById('paciente_idade').value = p.idade || '';
         document.getElementById('paciente_endereco').value = p.cidade || '';
+        document.getElementById('paciente_cep').value = p.cep || '';
 
         const r1 = p.responsaveis[0] || {};
         const r2 = p.responsaveis[1] || {};
@@ -72,11 +78,16 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('paciente_grau_parentesco_segundo_responsavel').value = r2.grau_parentesco || '';
     }
 
+    function liberarInputMedico(pacientePreenchido){
+        inputMedico.disabled = !pacientePreenchido;
+    }
+
     function clearPacienteData() {
         hiddenInput.value = '';
         document.getElementById('paciente_data_nascimento').value = '';
         document.getElementById('paciente_idade').value = '';
         document.getElementById('paciente_endereco').value = '';
+        document.getElementById('paciente_cep').value = '';
 
         document.getElementById('paciente_primeiro_responsavel').value = '';
         document.getElementById('paciente_grau_parentesco_primeiro_responsavel').value = '';

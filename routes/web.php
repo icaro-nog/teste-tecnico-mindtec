@@ -4,9 +4,9 @@ use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
 
-// Route::fallback(function () {
-//     return view('agendamento.index');
-// });
+Route::fallback(function () {
+    return view('agendamento.index');
+});
 
 Route::get('/agendamento', [AgendamentoController::class, 'index'])
     ->name('agendamento.index');

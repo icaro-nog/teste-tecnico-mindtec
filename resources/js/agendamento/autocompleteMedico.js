@@ -1,3 +1,6 @@
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('medico_nome_crm');
     const list = document.getElementById('autocomplete-medicos');
@@ -26,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/api/medicos')
             .then(res => res.json())
             .then(data => {
-                
-                // console.log(data)
 
                 const matches = data.filter(medico =>
                     medico.nome.toLowerCase().includes(query) ||
@@ -46,21 +47,69 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.textContent = `${medico.nome} (${medico.crm})`;
 
                     item.addEventListener('click', () => {
-                        input.value = `${medico.nome} (${medico.crm})`;
-                        lastSelectedLabel = input.value;
 
-                        crmField.value = medico.crm;
-                        especialidadeField.value = medico.especialidade;
+                        input.value = `${medico.nome} (${medico.crm})`;
 
                         if (medico.cep) {
-                            fetch(`https://viacep.com.br/ws/${medico.cep.replace(/\D/g, '')}/json/`)
+                            const cepMedico = medico.cep.replace(/\D/g, '');
+                            const cepPaciente = document.getElementById('paciente_cep')?.value?.replace(/\D/g, '');
+
+                            // Buscar dados do médico
+                            fetch(`https://viacep.com.br/ws/${cepMedico}/json/`)
                                 .then(res => res.json())
-                                .then(viaCep => {
-                                    cidadeField.value = viaCep.localidade || '';
-                                    ufField.value = viaCep.uf || '';
+                                .then(viaCepMedico => {
+
+                                    // Buscar dados do paciente
+                                    fetch(`https://viacep.com.br/ws/${cepPaciente}/json/`)
+                                        .then(res => res.json())
+                                        .then(viaCepPaciente => {
+
+                                            const mesmaCidade = (
+                                                viaCepMedico.localidade === viaCepPaciente.localidade &&
+                                                viaCepMedico.uf === viaCepPaciente.uf
+                                            );
+
+                                            if (!mesmaCidade) {
+                                                Toastify({
+                                                    text: "Atenção! Médico indisponível para a cidade do paciente.",
+                                                    duration: 4000,
+                                                    gravity: "top", 
+                                                    position: "right",
+                                                    backgroundColor: "#dc2626",
+                                                    stopOnFocus: true,
+                                                }).showToast();
+                                            } else {
+                                                // Segue o fluxo normal
+                                                lastSelectedLabel = input.value;
+
+                                                crmField.value = medico.crm;
+                                                especialidadeField.value = medico.especialidade;
+
+                                                cidadeField.value = viaCepMedico.localidade || '';
+                                                ufField.value = viaCepMedico.uf || '';
+                                            }
+
+                                        })
+                                        .catch(() => {
+                                            Toastify({
+                                                text: "Atenção! Erro ao buscar CEP.",
+                                                duration: 4000,
+                                                gravity: "top",
+                                                position: "right",
+                                                backgroundColor: "#dc2626",
+                                                stopOnFocus: true,
+                                            }).showToast();
+                                        });
                                 })
                                 .catch(() => {
-                                    cidadeField.value = '';
+                                    Toastify({
+                                        text: "Atenção! Erro ao buscar CEP.",
+                                        duration: 4000,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "#dc2626",
+                                        stopOnFocus: true,
+                                    }).showToast();
                                 });
                         }
 
