@@ -48,10 +48,11 @@
                 <input type="text" name="paciente_nome_cpf" id="paciente_nome_cpf"
                     placeholder="Nome ou CPF do paciente"
                     autocomplete="off"
-                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
+                    value="{{ old('paciente_nome_cpf') }}">
 
-                <input type="hidden" name="paciente_id" id="paciente_id">
-                <input type="hidden" name="paciente_cep" id="paciente_cep">
+                <input type="hidden" name="paciente_id" id="paciente_id" value="{{ old('paciente_id') }}">
+                <input type="hidden" name="paciente_cep" id="paciente_cep" value="{{ old('paciente_cep') }}">
 
                 <!-- Lista de pacientes -->
                 <ul id="autocomplete-list" class="absolute bg-white border border-gray-300 w-full mt-1 z-10 rounded shadow"
@@ -63,22 +64,25 @@
                     <label for="paciente_data_nascimento" class="block font-medium mb-1">Data de Nascimento</label>
                     <input type="date" name="paciente_data_nascimento" id="paciente_data_nascimento"
                            readonly
-                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                           value="{{ old('paciente_data_nascimento') }}">
                 </div>
 
                 <div>
                     <label for="paciente_idade" class="block font-medium mb-1">Idade</label>
                     <input type="text" name="paciente_idade" id="paciente_idade"
                            readonly
-                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                           value="{{ old('paciente_idade') }}">
                 </div>
             </div>
 
             <div>
                 <label for="paciente_endereco" class="block font-medium mb-1">Endereço</label>
-                <input type="text" name="paciente_cidade" id="paciente_endereco"
+                <input type="text" name="paciente_endereco" id="paciente_endereco"
                        readonly
-                       class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                       class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                       value="{{ old('paciente_endereco') }}">
             </div>
 
             <div class="flex flex-wrap gap-6">
@@ -87,14 +91,16 @@
                     <label for="paciente_primeiro_responsavel" class="block font-medium mb-1">Responsável 1</label>
                     <input type="text" name="paciente_primeiro_responsavel" id="paciente_primeiro_responsavel"
                         readonly
-                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                        value="{{ old('paciente_primeiro_responsavel') }}">
                 </div>
 
                 <div class="flex-1 min-w-[200px]">
                     <label for="paciente_grau_parentesco_primeiro_responsavel" class="block font-medium mb-1">Grau de parentesco</label>
                     <input type="text" name="paciente_grau_parentesco_primeiro_responsavel" id="paciente_grau_parentesco_primeiro_responsavel"
                         readonly
-                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                        value="{{ old('paciente_grau_parentesco_primeiro_responsavel') }}">
                 </div>
             </div>
             
@@ -103,13 +109,15 @@
                     <label for="paciente_segundo_responsavel" class="block font-medium mb-1">Responsável 2</label>
                     <input type="text" name="paciente_segundo_responsavel" id="paciente_segundo_responsavel"
                         readonly
-                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                        value="{{ old('paciente_segundo_responsavel') }}">
                 </div>
                 <div class="flex-1 min-w-[200px]">
                     <label for="paciente_grau_parentesco_segundo_responsavel" class="block font-medium mb-1">Grau de parentesco</label>
                     <input type="text" name="paciente_grau_parentesco_segundo_responsavel" id="paciente_grau_parentesco_segundo_responsavel"
                         readonly
-                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                        value="{{ old('paciente_grau_parentesco_segundo_responsavel') }}">
                 </div>
             </div>
 
@@ -157,7 +165,8 @@
                 <label for="medico_especialidade" class="block font-medium mb-1">Especialidade do Médico</label>
                 <input type="text" name="medico_especialidade" id="medico_especialidade"
                        readonly
-                       class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                       class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                       value="{{ old('medico_especialidade') }}">
             </div>
 
             <div>

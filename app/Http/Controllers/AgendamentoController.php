@@ -29,15 +29,20 @@ class AgendamentoController extends Controller
      */
     public function store(StoreAgendamentoRequest $request)
     {
-        $request->validated();
 
-        dd($request);
+        Agendamento::create([
+            'paciente_id' => $request->paciente_id,
+            'nome_medico' => $request->medico_nome_crm,
+            'crm_medico' => $request->medico_crm,
+            'cidade_medico' => $request->medico_cidade,
+            'uf_medico' => $request->medico_uf,
+            'especialidade' => $request->medico_especialidade,
+            'data_hora' => $request->agendamento_data_hora,
+            'status' => $request->agendamento_status,
+        ]);
 
-        // criar agendamento aqui com eloquent
-
-        // redirect pra route de listagem se der certo
-
-        // session('success') pra mostrar msg na listagem
+        return redirect()->route('agendamento.index')
+            ->with('success', 'Agendamento cadastrado com sucesso!');
     }
 
     /**

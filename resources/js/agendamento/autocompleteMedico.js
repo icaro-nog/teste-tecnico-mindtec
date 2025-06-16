@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     item.addEventListener('click', () => {
 
-                        input.value = `${medico.nome} (${medico.crm})`;
+                        input.value = `${medico.nome}`;
 
                         if (medico.cep) {
                             const cepMedico = medico.cep.replace(/\D/g, '');
