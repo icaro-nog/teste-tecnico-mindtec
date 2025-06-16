@@ -40,6 +40,12 @@
             </div>
         @endif
 
+        @if(isset($erro_limite_agendamento))
+            <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+                <p>{{ $erro_limite_agendamento }}</p>
+            </div>
+        @endif
+
         <form action="{{ route('agendamento.store') }}" method="POST" class="space-y-6">
             @csrf
 

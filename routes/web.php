@@ -17,6 +17,9 @@ Route::get('/cadastro-agendamento', [AgendamentoController::class, 'create'])
 Route::post('/store-agendamento', [AgendamentoController::class, 'store'])
     ->name('agendamento.store');
 
+Route::get('/edit-agendamento', [AgendamentoController::class, 'edit'])
+    ->name('agendamento.edit');
+
 Route::get('/paciente', [PacienteController::class, 'index'])
     ->name('paciente.index');
 

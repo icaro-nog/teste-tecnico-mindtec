@@ -22,4 +22,9 @@ class Agendamento extends Model
         'data_hora',
         'status',
     ];
+
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class);
+    }
 }

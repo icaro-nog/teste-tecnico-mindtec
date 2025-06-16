@@ -45,11 +45,20 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#d4e3e3]">
-                    {{-- @forelse($agendamentos as $agendamento)
+                    @forelse($agendamentos as $agendamento)
                         <tr class="hover:bg-[#f1f8f8]">
                             <td class="px-4 py-3">{{ $agendamento->id }}</td>
-                            <td class="px-4 py-3">{{ $agendamento->paciente }}</td>
-                            <td class="px-4 py-3">{{ $agendamento->medico_nome }}</td>
+                            <td class="px-4 py-3">{{ $agendamento->paciente->nome }}</td>
+                            <td class="px-4 py-3">
+                                <ul class="list-disc ml-6 list-none">
+                                    @foreach ($agendamento->paciente->responsaveis as $responsavel)
+                                        <li>
+                                            {{ $responsavel->nome }} ({{ $responsavel->grau_parentesco }})
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td class="px-4 py-3">{{ $agendamento->nome_medico }}</td>
                             <td class="px-4 py-3">{{ $agendamento->especialidade }}</td>
                             <td class="px-4 py-3">
                                 {{ \Carbon\Carbon::parse($agendamento->data_hora)->format('d/m/Y H:i') }}
@@ -63,7 +72,7 @@
                                 @endswitch
                             </td>
                             <td class="px-4 py-3">
-                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}"
+                                <a href="{{ route('agendamento.edit', $agendamento->id) }}"
                                    class="bg-[#86c440] text-[#1a3544] font-medium px-3 py-1.5 rounded hover:bg-[#76b030] transition">
                                     Editar
                                 </a>
@@ -73,7 +82,7 @@
                         <tr>
                             <td colspan="7" class="px-4 py-4 text-center">Nenhum agendamento encontrado.</td>
                         </tr>
-                    @endforelse --}}
+                    @endforelse
                 </tbody>
             </table>
         </div>
