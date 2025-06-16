@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo Agendamento</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#eff5f5] text-[#1a3544] font-sans">
 
@@ -43,12 +43,18 @@
         <form action="{{ route('agendamento.store') }}" method="POST" class="space-y-6">
             @csrf
 
-            <div>
+            <div class="autocomplete-wrapper" style="position: relative;">
                 <label for="paciente_nome_cpf" class="block font-medium mb-1">Paciente</label>
                 <input type="text" name="paciente_nome_cpf" id="paciente_nome_cpf"
-                       placeholder="Nome ou CPF do paciente"
-                       value="{{ old('paciente_nome_cpf') }}"
-                       class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
+                    placeholder="Nome ou CPF do paciente"
+                    autocomplete="off"
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
+
+                <input type="hidden" name="paciente_id" id="paciente_id">
+
+                <!-- Lista de pacientes -->
+                <ul id="autocomplete-list" class="absolute bg-white border border-gray-300 w-full mt-1 z-10 rounded shadow"
+                    style="display: none;"></ul>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -61,14 +67,14 @@
 
                 <div>
                     <label for="paciente_idade" class="block font-medium mb-1">Idade</label>
-                    <input type="number" name="paciente_idade" id="paciente_idade"
+                    <input type="text" name="paciente_idade" id="paciente_idade"
                            readonly
                            class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
                 </div>
             </div>
 
             <div>
-                <label for="paciente_endereco" class="block font-medium mb-1">Cidade</label>
+                <label for="paciente_endereco" class="block font-medium mb-1">Endereço</label>
                 <input type="text" name="paciente_cidade" id="paciente_endereco"
                        readonly
                        class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
@@ -84,7 +90,7 @@
                 </div>
 
                 <div class="flex-1 min-w-[200px]">
-                    <label for="paciente_grau_parentesco_primeiro_responsavel" class="block font-medium mb-1">Grau parentesco</label>
+                    <label for="paciente_grau_parentesco_primeiro_responsavel" class="block font-medium mb-1">Grau de parentesco</label>
                     <input type="text" name="paciente_grau_parentesco_primeiro_responsavel" id="paciente_grau_parentesco_primeiro_responsavel"
                         readonly
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
@@ -99,7 +105,7 @@
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
                 </div>
                 <div class="flex-1 min-w-[200px]">
-                    <label for="paciente_grau_parentesco_segundo_responsavel" class="block font-medium mb-1">Grau parentesco</label>
+                    <label for="paciente_grau_parentesco_segundo_responsavel" class="block font-medium mb-1">Grau de parentesco</label>
                     <input type="text" name="paciente_grau_parentesco_segundo_responsavel" id="paciente_grau_parentesco_segundo_responsavel"
                         readonly
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
@@ -107,12 +113,16 @@
             </div>
 
             <div class="flex flex-wrap gap-4">
-                <div class="flex-auto w-95">
+                <div class="flex-auto w-95" style="position: relative;">
                     <label for="medico_nome_crm" class="block font-medium mb-1">Médico</label>
                     <input type="text" name="medico_nome_crm" id="medico_nome_crm"
                            placeholder="Nome ou CRM do médico"
                            value="{{ old('medico_nome_crm') }}"
-                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]">
+                           class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#86c440]"
+                           autocomplete="off">
+
+                    <!-- Lista de pacientes -->
+                    <ul id="autocomplete-medicos" class="absolute bg-white w-full border border-gray-200 shadow-md rounded mt-1 z-10 hidden"></ul>
                 </div>
 
                 <div class="flex-auto w-5">
@@ -124,11 +134,22 @@
                 </div>
             </div>
 
-            <div>
-                <label for="medico_cidade" class="block font-medium mb-1">Cidade do Médico</label>
-                <input type="text" name="medico_cidade" id="medico_cidade"
-                       readonly
-                       class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-auto w-95">
+                    <label for="medico_cidade" class="block font-medium mb-1">Cidade do Médico</label>
+                    <input type="text" name="medico_cidade" id="medico_cidade"
+                           readonly
+                           value="{{ old('medico_cidade') }}"
+                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                </div>
+
+                <div class="flex-auto w-5">
+                    <label for="medico_uf" class="block font-medium mb-1">UF</label>
+                    <input type="text" name="medico_uf" id="medico_uf"
+                           value="{{ old('medico_uf') }}"
+                           readonly
+                           class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100">
+                </div>
             </div>
 
             <div>

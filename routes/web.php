@@ -4,9 +4,9 @@ use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\PacienteController;
 use Illuminate\Support\Facades\Route;
 
-Route::fallback(function () {
-    return view('agendamento.index');
-});
+// Route::fallback(function () {
+//     return view('agendamento.index');
+// });
 
 Route::get('/agendamento', [AgendamentoController::class, 'index'])
     ->name('agendamento.index');
@@ -34,3 +34,7 @@ Route::put('paciente/{paciente}', [PacienteController::class, 'update'])
 
 Route::delete('paciente/{paciente}', [PacienteController::class, 'destroy'])
     ->name('paciente.destroy');
+
+Route::get('/autocomplete/paciente', [PacienteController::class, 'autocomplete'])
+    ->name('paciente.autocomplete');
+

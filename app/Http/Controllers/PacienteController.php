@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePacienteRequest;
 use App\Models\Paciente;
 use App\Models\Responsavel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
@@ -152,5 +153,30 @@ class PacienteController extends Controller
 
             return back()->withErrors(['error' => 'Erro ao excluir: ' . $e->getMessage()]);
         }
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $query = $request->get('query');
+
+        $pacientes = Paciente::with('responsaveis')
+            ->where('nome', 'like', "%{$query}%")
+            ->orWhere('cpf', 'like', "%{$query}%")
+            ->limit(20)
+            ->get();
+
+        return $pacientes->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'label' => "{$p->nome} - {$p->cpf_formatado}",
+                'data_nascimento' => $p->data_nascimento,
+                'idade' => $p->idade_calculada,
+                'cidade' => $p->endereco_completo,
+                'responsaveis' => $p->responsaveis->map(fn ($r) => [
+                    'nome' => $r->nome,
+                    'grau_parentesco' => $r->grau_parentesco
+                ])
+            ];
+        });
     }
 }

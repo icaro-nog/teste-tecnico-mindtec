@@ -59,7 +59,7 @@
                             <td class="px-4 py-3">{{ $paciente->idade_calculada }}</td>
                             <td class="px-4 py-3">{{ $paciente->endereco_completo }}</td>
                             <td class="px-4 py-3">
-                                <ul class="list-disc ml-6">
+                                <ul class="list-disc ml-6 list-none">
                                     @foreach ($paciente->responsaveis as $responsavel)
                                         <li>
                                             {{ $responsavel->nome }} ({{ $responsavel->grau_parentesco }}) - CPF: {{ $responsavel->cpf }}
