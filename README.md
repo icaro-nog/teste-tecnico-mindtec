@@ -113,12 +113,12 @@ Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de age
 * Paginação da listagem de registros
 
 ## Tarefas extras
-Código fonte de Feature Test de cadastro de um paciente com 2 responsáveis está no arquivo: ```teste-tecnico-mindtec/tests/Feature/PacienteControllerTest.php```
+* Código fonte de Feature Test de cadastro de um paciente com 2 responsáveis está no arquivo: ```teste-tecnico-mindtec/tests/Feature/PacienteControllerTest.php``` para rodar os testes, basta executar o seguinte comando:
 ```
 php artisan test
 ```
 
-Para exportação de agendamentos por paciente para CSV, acesse:
+*  Para exportação de agendamentos por paciente para CSV, acesse:
 ```
 paciente/{id do paciente}/edit
 ```
@@ -126,6 +126,30 @@ Clique em <b>Agendamentos CSV</b>
 <br>
 ![image](https://github.com/user-attachments/assets/510d42c9-50af-4999-aeae-5b78ea29435f)
 <br>
+
+* Para rodar a aplicação com o Docker é necessário executar esses scripts na raiz do projeto:
+```
+docker-compose up -d --build
+
+docker-compose exec app composer install
+docker-compose exec app php artisan key:generate
+
+docker-compose exec app chmod -R 775 storage bootstrap/cache
+docker-compose exec app chown -R www-data:www-data storage bootstrap/cache
+
+docker-compose exec node npm install
+docker-compose exec node npm run dev
+```
+Pronto! Aplicação pode ser acessada via ```http://localhost:8001/```
+
+
+
+
+
+
+
+
+
 
 
 
