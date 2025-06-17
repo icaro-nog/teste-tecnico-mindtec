@@ -1,61 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Desafio Técnico: Sistema de Agendamento Médico - Mindtec :green_heart:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Objetivos
+O objetivo desse desafio técnico é desenvolver módulo de cadastro e agendamento médico de uma plataforma.
+* 1 - Cadastrar um paciente vinculando 2 responsáveis obrigatoriamente
+* 2 - Listar pacientes cadastrados
+* 3 - Atualizar campos e responsáveis do paciente
+* 4 - Deletar o paciente e seus responsáveis
+* 5 - Cadastrar agendamento vinculando paciente e médico consultado via json mock
+* 6 - Atualizar status de um agendamento para: Agendado(1), em Cancelado(2) ou Realizado(3)
 
-## About Laravel
+## Linguagens, frameworks, libs e softwares utilizados 
+* Laravel 12
+* Composer 2.8
+* PHP 8.2
+* MySQL 8.4
+* Npm 9.2
+* iMask.js
+* Toastify
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Instruções para execução local
+1º Instale o <a href="https://www.php.net/">PHP</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+2º Instale o <a href="https://git-scm.com/">Git</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+3º Instale o <a href="https://getcomposer.org/">Composer</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+4º Instale o <a href="https://www.mysql.com/">MySQL</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+5º Instale o <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">Npm</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+6º No terminal do seu sistema operacional, execute o comando abaixo para clonar o projeto
+```
+git clone https://github.com/icaro-nog/teste-tecnico-mindtec.git (HTTPS)
+ou
+git clone git@github.com:icaro-nog/teste-tecnico-mindtec.git (SSH)
+```
+7º Na pasta raiz do projeto clonado, para atualizar e instalar as dependências do <b>Npm</b>, execute os comandos abaixo
+```
+npm install && npm run build
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+8º Vá até o arquivo <b>teste-tecnico-mindtec/.env.example</b>, renomeie para <b>.env</b> e atualize as credenciais de conexão com o banco de dados, de acordo com o que foi definido na instalação do MySQL
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mindtec
+DB_USERNAME= # USUARIO DEFINIDO
+DB_PASSWORD= # SENHA DEFINIDA
+```
+9º Agora, execute o comando abaixo para criação da <b>base de dados e tabelas</b> no banco de dados
+```
+php artisan migrate
+```
+10º Para servir a aplicação, execute o seguinte comando
+```
+composer run dev
+```
+Após isso, a aplicação estará pronta para testagens!
 
-## Learning Laravel
+### Rota para Cadastro de Paciente vinculando Responsáveis
+```
+/cadastro-paciente
+```
+Preencha os campos necessários e clique em <b>Cadastrar</b>
+<br>
+![image](https://github.com/user-attachments/assets/2696437a-3f9e-4225-9581-a0815c115c7f)
+<br>
+Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de pacientes
+<br>
+![image](https://github.com/user-attachments/assets/49cc19c6-029f-43e3-9c51-1b7de3f63b5b)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Rota para Cadastro de Agendamento vinculando Paciente
+```
+/cadastro-agendamento
+```
+Ao selecionar o paciente, serão preenchidos os campos readonly. 
+<br>
+O campo <b>Médico</b> só é liberado para preenchimento ao selecionar o paciente.
+<br>
+Caso o médico não seja da mesma cidade em que o paciente, será apresentado um toast informando e <b>não permitindo</b> prosseguir com o agendamento.
+<br>
+Caso o paciente já tiver 3 agendamentos, não será permitido a criação de um novo.
+<br>
+![image](https://github.com/user-attachments/assets/e4860480-9dcb-455a-81eb-f7c03ea0205b)
+<br>
+Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de agendamentos
+<br>
+![image](https://github.com/user-attachments/assets/158ebf54-55ab-4ee7-8b88-2b0d66c48fa2)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Diagrama de Entidades
+![image](https://github.com/user-attachments/assets/32800005-010a-4cc6-8ac8-754161550834)
 
-## Laravel Sponsors
+## Decisões Técnicas
+* Armazenamento do cep do paciente pra comparação de cidades na tela de agendamento utilizando cep do médico
+* Centralização da api ViaCEP e api simulada dos médicos em controllers para facilitar reutilização e gravação de logs
+* Armazenamento de dados do médico na tabela de agendamentos para futuras consultas
+* Não uso de componentes blade para agilizar a entrega, mas a custo de código acoplado nas views
+* Uso da lib Toastify para evitar alerts
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Possíveis melhorias ou pontos não esclarecidos no escopo do teste
+* Agendamento pode ser feito com data retroativa? Se não, é necessário correção no datepicker
+    - se agendado, data futura
+    - se realizado, data retroativa
+    - se cancelado, data retroativa
+* Ao atualizar o cep do paciente com agendamento vinculado, o que deve ser realizado com o agendamento? E ao deletar o paciente?
+* Opcional o preenchimento do CPF do paciente, visto que o mesmo pode não possuir
+* Validação para responsáveis serem maior de 18 anos
+* Vinculação de mais responsáveis ao paciente
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
 
-## Contributing
+<br>
+<br>
+<br>
+<br>
+O controller de testes, está em ```to-do-list/tests/Feature/TaskControllerTest.php```
+Para rodar os testes, é necessário executar o seguinte comando na raiz do projeto
+```
+php artisan test
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Documentação da API realizada no Swagger
+```
+http://127.0.0.1:8000/api/documentation
+```
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Pontuação de possíveis melhorias
+* Captura de logs para coleta de possíveis erros
+* Sanitização dos campos dos formulários
+* Paginação da listagem de tarefas
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
