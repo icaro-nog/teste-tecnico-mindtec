@@ -85,8 +85,14 @@ Caso o médico não seja da mesma cidade em que o paciente, será apresentado um
 Caso o paciente já tiver 3 agendamentos, não será permitido a criação de um novo.
 <br>
 ![image](https://github.com/user-attachments/assets/e4860480-9dcb-455a-81eb-f7c03ea0205b)
+<br>
+Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de agendamentos
+<br>
+![image](https://github.com/user-attachments/assets/158ebf54-55ab-4ee7-8b88-2b0d66c48fa2)
+
 
 ## Diagrama de Entidades
+![image](https://github.com/user-attachments/assets/32800005-010a-4cc6-8ac8-754161550834)
 
 
 
