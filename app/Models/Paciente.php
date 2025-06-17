@@ -52,4 +52,9 @@ class Paciente extends Model
             $this->cpf
         );
     }
+
+    public function agendamentos()
+    {
+        return $this->hasMany(Agendamento::class);
+    }
 }

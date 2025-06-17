@@ -26,6 +26,9 @@ Route::get('/cadastro-paciente', [PacienteController::class, 'create'])
 Route::post('/store-paciente', [PacienteController::class, 'store'])
     ->name('paciente.store');
 
+Route::get('/paciente/{paciente}/agendamento/csv', [AgendamentoController::class, 'exportCsv'])
+    ->name('agendamento.export.csv');
+
 Route::get('paciente/{paciente}/edit', [PacienteController::class, 'edit'])
     ->name('paciente.edit');
 

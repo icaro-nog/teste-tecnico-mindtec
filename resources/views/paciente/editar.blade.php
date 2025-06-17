@@ -28,7 +28,14 @@
     </nav>
 
     <main class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded shadow-md">
-        <h1 class="text-2xl font-bold mb-6">Editar Paciente</h1>
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold">Editar Paciente</h1>
+            <a 
+                href="{{ route('agendamento.export.csv', $paciente->id) }}"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Agendamentos CSV
+            </a>
+        </div>
 
         @if($errors->any())
             <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">

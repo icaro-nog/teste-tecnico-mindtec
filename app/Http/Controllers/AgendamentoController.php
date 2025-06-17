@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAgendamentoRequest;
 use App\Http\Requests\UpdateAgendamentoRequest;
 use App\Models\Agendamento;
+use App\Models\Paciente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AgendamentoController extends Controller
 {
@@ -119,5 +121,65 @@ class AgendamentoController extends Controller
         $agendamento->save();
 
         return response()->json(['success' => true]);
+    }
+
+    public function exportCsv($pacienteId): StreamedResponse
+    {
+        $paciente = Paciente::findOrFail($pacienteId);
+
+        $agendamentos = $paciente->agendamentos()->with(['paciente.responsaveis'])->get();
+
+        $headers = [
+            "Content-Type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=agendamentos_paciente_{$paciente->id}.csv",
+        ];
+
+        $columns = [
+            'ID', 
+            'Paciente',
+            'Responsável 1',
+            'Responsável 2',
+            'Médico',
+            'Especialidade',
+            'Data e Hora',
+            'Status'
+        ];
+
+        $callback = function () use ($agendamentos, $columns) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $columns);
+
+            foreach ($agendamentos as $agendamento) {
+
+                $statusAgendamento = '';
+
+                switch($agendamento->status){
+                    case 1: 
+                        $statusAgendamento = 'Agendado';
+                        break;
+                    case 2: 
+                        $statusAgendamento = 'Cancelado';
+                        break;
+                    case 3: 
+                        $statusAgendamento = 'Realizado';
+                        break;
+                }
+
+                fputcsv($handle, [
+                    $agendamento->id,
+                    $agendamento->paciente->nome,
+                    $agendamento->paciente->responsaveis[0]->nome . ' (' . $agendamento->paciente->responsaveis[0]->grau_parentesco . ') - ' . $agendamento->paciente->responsaveis[0]->cpf,
+                    $agendamento->paciente->responsaveis[1]->nome . ' (' . $agendamento->paciente->responsaveis[1]->grau_parentesco . ') - ' . $agendamento->paciente->responsaveis[1]->cpf,
+                    $agendamento->nome_medico,
+                    $agendamento->especialidade,
+                    $agendamento->data_hora,
+                    $statusAgendamento
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }
