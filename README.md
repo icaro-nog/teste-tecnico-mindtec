@@ -94,9 +94,17 @@ Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de age
 ## Diagrama de Entidades
 ![image](https://github.com/user-attachments/assets/32800005-010a-4cc6-8ac8-754161550834)
 
+## Decisões Técnicas
+* Armazenamento do cep do paciente pra comparação de cidades na tela de agendamento utilizando cep do médico
+* Centralização da api ViaCEP e api simulada dos médicos em controllers para facilitar reutilização e gravação de logs
+* Armazenamento de dados do médico na tabela de agendamentos para futuras consultas
+* Não uso de componentes blade para agilizar a entrega, mas a custo de código acoplado nas views
+* Uso da lib Toastify para evitar alerts
 
-
-## Teste unitários
+<br>
+<br>
+<br>
+<br>
 O controller de testes, está em ```to-do-list/tests/Feature/TaskControllerTest.php```
 Para rodar os testes, é necessário executar o seguinte comando na raiz do projeto
 ```
