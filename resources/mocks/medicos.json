@@ -1,0 +1,62 @@
+[
+  {
+    "nome": "Dra. Ana Beatriz Oliveira",
+    "crm": "123456/SP",
+    "especialidade": "Pediatria",
+    "cep": "01001000"
+  },
+  {
+    "nome": "Dr. João Pedro Fernandes",
+    "crm": "654321/SP",
+    "especialidade": "Ortopedia",
+    "cep": "04004020"
+  },
+  {
+    "nome": "Dr. Lucas Pereira Silva",
+    "crm": "112233/RJ",
+    "especialidade": "Cardiologia",
+    "cep": "20010000"
+  },
+  {
+    "nome": "Dra. Camila Torres Lima",
+    "crm": "998877/MT",
+    "especialidade": "Ginecologia",
+    "cep": "78055824"
+  },
+  {
+    "nome": "Dr. Rafael Costa Andrade",
+    "crm": "445566/RS",
+    "especialidade": "Neurologia",
+    "cep": "90010320"
+  },
+  {
+    "nome": "Dra. Mariana Gomes Rocha",
+    "crm": "223344/SP",
+    "especialidade": "Dermatologia",
+    "cep": "05001100"
+  },
+  {
+    "nome": "Dr. Fernando Lima Couto",
+    "crm": "667788/BA",
+    "especialidade": "Endocrinologia",
+    "cep": "40020000"
+  },
+  {
+    "nome": "Dra. Bruna Carvalho Mendes",
+    "crm": "334455/PE",
+    "especialidade": "Psiquiatria",
+    "cep": "50010040"
+  },
+  {
+    "nome": "Dr. Igor Almeida Nunes",
+    "crm": "556677/PR",
+    "especialidade": "Urologia",
+    "cep": "80010110"
+  },
+  {
+    "nome": "Dra. Larissa Martins Farias",
+    "crm": "778899/CE",
+    "especialidade": "Oftalmologia",
+    "cep": "60010270"
+  }
+]

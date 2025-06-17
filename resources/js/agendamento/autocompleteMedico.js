@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearFields();
         }
 
+        // registrar aqui 3?
         fetch('/api/medicos')
             .then(res => res.json())
             .then(data => {
@@ -55,15 +56,16 @@ document.addEventListener('DOMContentLoaded', function () {
                             const cepPaciente = document.getElementById('paciente_cep')?.value?.replace(/\D/g, '');
 
                             // Buscar dados do médico
-                            fetch(`https://viacep.com.br/ws/${cepMedico}/json/`)
+                            fetch(`/api/cep/${cepMedico}`)
                                 .then(res => res.json())
                                 .then(viaCepMedico => {
 
                                     // Buscar dados do paciente
-                                    fetch(`https://viacep.com.br/ws/${cepPaciente}/json/`)
+                                    fetch(`/api/cep/${cepPaciente}`)
                                         .then(res => res.json())
                                         .then(viaCepPaciente => {
 
+                                            // comparando cidades
                                             const mesmaCidade = (
                                                 viaCepMedico.localidade === viaCepPaciente.localidade &&
                                                 viaCepMedico.uf === viaCepPaciente.uf

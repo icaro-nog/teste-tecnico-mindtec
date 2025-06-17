@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\MedicoMockController;
+use App\Http\Controllers\CepController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
-Route::get('/medicos', function () {
+Route::get('/medicos', [MedicoMockController::class, 'index'])
+    ->name('api.medicos');
 
-    $json = Storage::get('medicos.json');
-
-    return response()->json(json_decode($json));
-})->name('api.medicos');
+Route::get('/cep/{cep}', [CepController::class, 'buscar']);

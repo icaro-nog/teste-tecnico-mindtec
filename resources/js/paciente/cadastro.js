@@ -51,8 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
     cepInput.addEventListener('blur', function () {
         let cep = cepInput.value.replace(/\D/g, '');
 
+        // registrar aqui
         if (cep.length === 8) {
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            fetch(`/api/cep/${cep}`)
                 .then(response => response.json())
                 .then(data => {
                     if (!data.erro) {
