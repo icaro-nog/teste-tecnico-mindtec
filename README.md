@@ -60,13 +60,33 @@ composer run dev
 ```
 Após isso, a aplicação estará pronta para testagens!
 
-### Rota para cadastro de paciente vinculando responsáveis
+### Rota para Cadastro de Paciente vinculando Responsáveis
 ```
 /cadastro-paciente
 ```
+Preencha os campos necessários e clique em <b>Cadastrar</b>
+<br>
 ![image](https://github.com/user-attachments/assets/2696437a-3f9e-4225-9581-a0815c115c7f)
+<br>
+Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de pacientes
+<br>
 ![image](https://github.com/user-attachments/assets/49cc19c6-029f-43e3-9c51-1b7de3f63b5b)
 
+### Rota para Cadastro de Agendamento vinculando Paciente
+```
+/cadastro-agendamento
+```
+Ao selecionar o paciente, serão preenchidos os campos readonly. 
+<br>
+O campo <b>Médico</b> só é liberado para preenchimento ao selecionar o paciente.
+<br>
+Caso o médico não seja da mesma cidade em que o paciente, será apresentado um toast informando e <b>não permitindo</b> prosseguir com o agendamento.
+<br>
+Caso o paciente já tiver 3 agendamentos, não será permitido a criação de um novo.
+<br>
+![image](https://github.com/user-attachments/assets/e4860480-9dcb-455a-81eb-f7c03ea0205b)
+
+## Diagrama de Entidades
 
 
 
