@@ -101,6 +101,18 @@ Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de age
 * Não uso de componentes blade para agilizar a entrega, mas a custo de código acoplado nas views
 * Uso da lib Toastify para evitar alerts
 
+## Possíveis melhorias ou pontos não esclarecidos no escopo do teste
+* Agendamento pode ser feito com data retroativa? Se não, é necessário correção no datepicker
+    - se agendado, data futura
+    - se realizado, data retroativa
+    - se cancelado, data retroativa
+* Ao atualizar o cep do paciente com agendamento vinculado, o que deve ser realizado com o agendamento? E ao deletar o paciente?
+* Opcional o preenchimento do CPF do paciente, visto que o mesmo pode não possuir
+* Validação para responsáveis serem maior de 18 anos
+* Vinculação de mais responsáveis ao paciente
+
+
+
 <br>
 <br>
 <br>
