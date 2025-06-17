@@ -1,61 +1,201 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Desafio: Sistema de Agendamento Médico - Mindtec :green_heart:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Objetivos
+O objetivo desse desafio técnico é desenvolver módulo de cadastro e agendamento médico de uma plataforma.
+* 1 - Cadastrar um paciente vinculando 2 responsáveis obrigatoriamente
+* 2 - Listar pacientes cadastrados
+* 3 - Atualizar campos e responsáveis do paciente
+* 4 - Deletar o paciente e seus responsáveis
+* 5 - Cadastrar agendamento vinculando paciente e médico consultado via json mock
+* 6 - Atualizar status de um agendamento para: Agendado(1), em Cancelado(2) ou Realizado(3)
 
-## About Laravel
+## Linguagens, frameworks, libs e softwares utilizados 
+* Laravel 12
+* Composer 2.8
+* PHP 8.2
+* MySQL 8.4
+* Npm 9.2
+* iMask.js
+* Toastify
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Instruções para execução local
+1º Instale o <a href="https://www.php.net/">PHP</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+2º Instale o <a href="https://git-scm.com/">Git</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+3º Instale o <a href="https://getcomposer.org/">Composer</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+4º Instale o <a href="https://www.mysql.com/">MySQL</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
+5º Instale o <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">Npm</a> de acordo com seu sistema operacional e a versão descrita acima
+<br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+6º No terminal do seu sistema operacional, execute o comando abaixo para clonar o projeto
+```
+git clone https://github.com/icaro-nog/teste-tecnico-mindtec (HTTPS)
+ou
+git clone git@github.com:icaro-nog/teste-tecnico-mindtec (SSH)
+```
+7º Na pasta raiz do projeto clonado, para atualizar e instalar as dependências do <b>Composer</b>, execute os comandos abaixo
+```
+npm install && npm run build
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+8º Vá até o arquivo <b>api-todolist/.env</b> e atualize as credenciais de conexão com o banco de dados, de acordo com o que foi definido na instalação do MySQL
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306 // PORTA DEFINIDA
+DB_DATABASE=todolist
+DB_USERNAME=root // USUÁRIO
+DB_PASSWORD= // SENHA
+```
+9º Agora, no MySQL, via terminal ou ferramenta gráfica de banco de dados como Dbeaver ou MySQL Workbench, execute o comando abaixo para criação do <b>banco de dados</b>
+```
+CREATE DATABASE todolist;
+```
+10º Agora, execute o comando abaixo para criação das <b>tabelas</b> no banco de dados
+```
+php artisan migrate
+```
+11º Para servir a aplicação, execute o seguinte comando
+```
+php artisan serve
+```
+composer run dev
 
-## Learning Laravel
+Após isso, a aplicação estará pronta para testagens!
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Rota POST para criação de tarefa
+```
+http://127.0.0.1:8000/api/task
+```
+A requisição pode ser feita passando os dados em formato JSON através do Body, como no exemplo abaixo:
+```
+{
+  "title": "Nova tarefa", // required
+  "description": "Descrição opcional", // nullable
+  "status": 2 // between 1, 3
+}
+```
+Resposta esperada:
+```
+{
+	"task": {
+		"title": "Nova tarefa",
+		"status": 2,
+		"description": "Descrição opcional",
+		"updated_at": "2025-05-29T20:39:33.000000Z",
+		"created_at": "2025-05-29T20:39:33.000000Z",
+		"id": 19
+	}
+}
+```
+### Rota GET para listagem de tarefas
+```
+http://127.0.0.1:8000/api/tasks
+```
+Resposta esperada:
+```
+{
+	"tasks": [
+		{
+			"id": 2,
+			"title": "tarefa 1",
+			"description": "desc tarefa 1",
+			"status": 1,
+			"created_at": "2025-05-27T16:00:14.000000Z",
+			"updated_at": "2025-05-27T16:00:14.000000Z"
+		},
+		{
+			"id": 4,
+			"title": "tarefa 4",
+			"description": "desc tarefa 4",
+			"status": 3,
+			"created_at": "2025-05-27T18:38:45.000000Z",
+			"updated_at": "2025-05-28T22:03:07.000000Z"
+		},
+    ]
+}
+```
+### Rota GET para listagem de tarefas por status, pode ser passado o parâmetro entre 1 e 3 (pendente(1), em andamento(2) ou concluída(3))
+```
+http://127.0.0.1:8000/api/tasks/status/3
+```
+Resposta esperada:
+```
+{
+	"tasks": [
+		{
+			"id": 4,
+			"title": "tarefa 4",
+			"description": "desc tarefa 4",
+			"status": 3,
+			"created_at": "2025-05-27T18:38:45.000000Z",
+			"updated_at": "2025-05-28T22:03:07.000000Z"
+		},
+      ]
+}
+```
+### Rota PUT para atualização de status de tarefa, deve ser passado o id da tarefa como parâmetro
+```
+http://127.0.0.1:8000/api/task/4
+```
+Exemplo de requisição em JSON no body, deve ser passado o valor do novo status:
+```
+{
+  "status": 2 // between 1, 3
+}
+```
+Resposta esperada:
+```
+{
+	"task": {
+		"id": 4,
+		"title": "tarefa 4",
+		"description": "desc tarefa 4",
+		"status": 1,
+		"created_at": "2025-05-27T18:38:45.000000Z",
+		"updated_at": "2025-05-30T15:45:23.000000Z"
+	}
+}
+```
+### Rota DELETE para exclusão de tarefa, deve ser passado o id da tarefa como parâmetro
+```
+http://127.0.0.1:8000/api/task/4
+```
+Resposta esperada:
+```
+{
+	"message": "Task deleted successfully."
+}
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Observação
+Tratamento foi realizado em todas as requisições inesperadas, para a rota DELETE, por exemplo, 
+caso seja realizada uma requisição para um id inexistente no banco de dados, será retornado algo como:
+```
+{
+	"error": "Task not found."
+}
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teste unitários
+O controller de testes, está em ```to-do-list/tests/Feature/TaskControllerTest.php```
+Para rodar os testes, é necessário executar o seguinte comando na raiz do projeto
+```
+php artisan test
+```
 
-## Laravel Sponsors
+## Documentação da API realizada no Swagger
+```
+http://127.0.0.1:8000/api/documentation
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+## Pontuação de possíveis melhorias
+* Captura de logs para coleta de possíveis erros
+* Sanitização dos campos dos formulários
+* Paginação da listagem de tarefas
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
