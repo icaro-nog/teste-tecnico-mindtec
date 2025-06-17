@@ -110,28 +110,22 @@ Ao cadastrar corretamente, você será direcionado para a <b>listagem</b> de age
 * Opcional o preenchimento do CPF do paciente, visto que o mesmo pode não possuir
 * Validação para responsáveis serem maior de 18 anos
 * Vinculação de mais responsáveis ao paciente
+* Paginação da listagem de registros
 
-
-
-<br>
-<br>
-<br>
-<br>
-O controller de testes, está em ```to-do-list/tests/Feature/TaskControllerTest.php```
-Para rodar os testes, é necessário executar o seguinte comando na raiz do projeto
+## Tarefas extras
+Código fonte de Feature Test de cadastro de um paciente com 2 responsáveis está no arquivo: ```teste-tecnico-mindtec/tests/Feature/PacienteControllerTest.php```
 ```
 php artisan test
 ```
 
-## Documentação da API realizada no Swagger
+Para exportação de agendamentos por paciente para CSV, acesse:
 ```
-http://127.0.0.1:8000/api/documentation
+paciente/{id do paciente}/edit
 ```
+Clique em <b>Agendamentos CSV</b>
+<br>
+![image](https://github.com/user-attachments/assets/510d42c9-50af-4999-aeae-5b78ea29435f)
+<br>
 
-
-## Pontuação de possíveis melhorias
-* Captura de logs para coleta de possíveis erros
-* Sanitização dos campos dos formulários
-* Paginação da listagem de tarefas
 
 
