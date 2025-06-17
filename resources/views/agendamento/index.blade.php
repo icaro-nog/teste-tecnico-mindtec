@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Listagem de Agendamentos</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/agendamento/atualizaStatus.js'])
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="bg-[#eff5f5] text-[#1a3544] font-sans">
 
@@ -41,7 +42,6 @@
                         <th class="text-left px-4 py-3">Especialidade</th>
                         <th class="text-left px-4 py-3">Data e Hora</th>
                         <th class="text-left px-4 py-3">Status</th>
-                        <th class="text-left px-4 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#d4e3e3]">
@@ -64,18 +64,14 @@
                                 {{ \Carbon\Carbon::parse($agendamento->data_hora)->format('d/m/Y H:i') }}
                             </td>
                             <td class="px-4 py-3">
-                                @switch($agendamento->status)
-                                    @case(1) Agendado @break
-                                    @case(2) Cancelado @break
-                                    @case(3) Realizado @break
-                                    @default Desconhecido
-                                @endswitch
-                            </td>
-                            <td class="px-4 py-3">
-                                <a href="{{ route('agendamento.edit', $agendamento->id) }}"
-                                   class="bg-[#86c440] text-[#1a3544] font-medium px-3 py-1.5 rounded hover:bg-[#76b030] transition">
-                                    Editar
-                                </a>
+                                <select class="status-select border rounded px-2 py-1"
+                                        data-id="{{ $agendamento->id }}"
+                                        data-data-hora="{{ $agendamento->data_hora }}"
+                                        data-original="{{ $agendamento->status }}">
+                                    <option value="1" {{ $agendamento->status == 1 ? 'selected' : '' }}>Agendado</option>
+                                    <option value="2" {{ $agendamento->status == 2 ? 'selected' : '' }}>Cancelado</option>
+                                    <option value="3" {{ $agendamento->status == 3 ? 'selected' : '' }}>Realizado</option>
+                                </select>
                             </td>
                         </tr>
                     @empty

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAgendamentoRequest;
 use App\Http\Requests\UpdateAgendamentoRequest;
 use App\Models\Agendamento;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class AgendamentoController extends Controller
 {
@@ -97,5 +98,26 @@ class AgendamentoController extends Controller
     public function destroy(Agendamento $agendamento)
     {
         //
+    }
+
+    public function atualizarStatus(Request $request, $id)
+    {
+        $agendamento = Agendamento::findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:1,2,3',
+        ]);
+
+        if ($request->status == 2 && now()->diffInHours($agendamento->data_hora, false) < 12) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cancelamento só é permitido até 12h antes do agendamento.'
+            ], 400);
+        }
+
+        $agendamento->status = $request->status;
+        $agendamento->save();
+
+        return response()->json(['success' => true]);
     }
 }
